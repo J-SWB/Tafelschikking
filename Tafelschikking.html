@@ -1,279 +1,242 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tafelzoeker – Trouwfeest Jani & Zalissa</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tafelzoeker – Jani & Zalissa</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf8f4;
+  --accent: #c97b7b;
+  --text: #3f3f3f;
+  --search-bg: #f7e5e5;
+}
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+* { margin:0; padding:0; box-sizing:border-box; }
 
-  <style>
-    :root {
-      --bg: #fdf8f4;
-      --accent: #c97b7b;
-      --accent-dark: #a45757;
-      --text: #3f3f3f;
-      --glass: rgba(255, 255, 255, 0.65);
-    }
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
 
-    body {
-      font-family: 'Quicksand', sans-serif;
-      background: var(--bg);
-      margin: 0;
-      padding: 0;
-      color: var(--text);
-      text-align: center;
-    }
+header {
+  height: 100vh;
+  background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('Foto1.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  padding: 2rem;
+}
 
-    /* HEADER */
-    header {
-      height: 45vh;
-      background: 
-        linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.15)),
-        url('Foto1.jpg') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-      padding: 2rem;
-      position: relative;
-    }
+.header-content {
+  background: rgba(0,0,0,0.4);
+  padding: 2rem;
+  border-radius: 16px;
+  animation: fadeInDown 2s ease-in-out;
+}
 
-    header h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 4rem;
-      animation: fadeInDown 1.8s ease-in-out;
-    }
+.header-content h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
 
-    /* MAIN CONTAINER */
-    .container {
-      max-width: 600px;
-      margin: -70px auto 0;
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      padding: 2.5rem 2.2rem;
-      border-radius: 20px;
-      box-shadow: 
-        0 10px 25px rgba(201, 123, 123, 0.25),
-        inset 0 0 40px rgba(255,255,255,0.6);
-      animation: fadeIn 1.5s ease-in-out;
-    }
+.header-content p {
+  font-size: 1.2rem;
+  font-style: italic;
+}
 
-    h2 {
-      font-family: 'Great Vibes', cursive;
-      color: var(--accent);
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+main {
+  max-width: 800px;
+  margin: -100px auto 0; /* omhoog plaatsen zodat het over header komt */
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
 
-    .intro {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-    }
+.search-container {
+  background: var(--search-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.6s ease-in-out;
+}
 
-    input {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid #e3c4c4;
-      font-size: 1.1rem;
-      outline: none;
-      transition: 0.2s;
-    }
+.search-container.show {
+  transform: translateY(0);
+  opacity: 1;
+}
 
-    input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 8px rgba(201, 123, 123, 0.4);
-    }
+.search-container input {
+  padding: 14px 20px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  font-size: 1.1rem;
+  outline: none;
+}
 
-    /* Suggesties */
-    #suggesties {
-      background: white;
-      border-radius: 10px;
-      margin-top: 5px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      display: none;
-      text-align: left;
-      overflow: hidden;
-    }
+.search-container button {
+  margin-top: 1rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    .suggestie-item {
-      padding: 0.8rem 1rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      border-bottom: 1px solid #f1dede;
-    }
+.search-container button:hover {
+  background: #a45757;
+}
 
-    .suggestie-item:hover {
-      background: #f7e2e2;
-    }
+#resultaat {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 1s ease-in-out, transform 0.6s ease-in-out;
+  transform: translateY(20px);
+}
 
-    /* Result */
-    #resultaat {
-      margin-top: 2rem;
-      font-size: 2rem;
-      font-weight: bold;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-      color: var(--accent);
-      min-height: 2.2rem;
-    }
+#resultaat.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    #resultaat.show {
-      opacity: 1;
-    }
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    @keyframes fadeInDown { from { opacity:0; transform:translateY(-25px);} to { opacity:1; transform:translateY(0);} }
-
-  </style>
+@media (max-width:768px){
+  header h1{ font-size:2.5rem; }
+  .header-content p{ font-size:1rem; }
+  main{ margin-top:-50px; padding:1rem; }
+}
+</style>
 </head>
-
 <body>
 
 <header>
-  <h1>Tafelzoeker</h1>
+  <div class="header-content">
+    <h1>Find your seat!</h1>
+    <p>Ontdek waar je plaats mag nemen op onze speciale dag en geniet van een onvergetelijk feest 🌿🍴</p>
+  </div>
 </header>
 
-<div class="container">
-  <h2>Welkom op ons trouwfeest</h2>
-
-  <p class="intro">
-    Fijn dat je er bent op onze speciale dag! Vul je naam in om te ontdekken aan welke tafel je plaats mag nemen. Dit geldt als startpunt en suggestie: je bent vrij om ook eens aan een andere tafel te schuiven. Bij mooi weer kun je buiten genieten van het feest met onze foodtruck. Er is een all-you-can-eat, dus je mag tussen 19u en 21u zoveel aanschuiven als je wilt! 🌿🍴 🌿✨
-  </p>
-
-  <input id="naamInput" type="text" placeholder="Typ je naam...">
-  <div id="suggesties"></div>
-
-  <div id="resultaat"></div>
-</div>
-
+<main>
+  <div class="search-container" id="searchContainer">
+    <p>Fijn dat je er bent op onze speciale dag! Vul je naam in om te ontdekken aan welke tafel je plaats mag nemen. Je bent vrij om ook eens aan een andere tafel te schuiven en bij mooi weer buiten te genieten van het feest met onze foodtruck. Tussen 19u en 21u kun je zoveel aanschuiven als je wilt! 🌿🍴</p>
+    <input id="naamInput" type="text" placeholder="bv. Katrien Barremaecker">
+    <button onclick="zoekPersoon()">Zoek</button>
+    <div id="resultaat"></div>
+  </div>
+</main>
 
 <script>
-/* ------------------ DATABASE ------------------ */
-const gasten = [
-  { naam: "Zalissa Vanhauter", tafel: 1 },
-  { naam: "Jani Swimberghe", tafel: 1 },
-  { naam: "Katrien Barremaecker", tafel: 1 },
-  { naam: "Chris Becue", tafel: 1 },
-  { naam: "Johan Swimberghe", tafel: 1 },
-  { naam: "Carine Van Belleghem", tafel: 1 },
-
-  { naam: "Nicky Bruneel", tafel: 2 },
-  { naam: "Sylvie Steyaert", tafel: 2 },
-  { naam: "Joey De Queecker", tafel: 2 },
-  { naam: "Celine Steyaert", tafel: 2 },
-  { naam: "Brecht Velle", tafel: 2 },
-  { naam: "Charlotte Carrette", tafel: 2 },
-];
-
-/* ------------------ LEVENSHTEIN ------------------ */
-function levenshtein(a, b) {
-  a = a.toLowerCase();
-  b = b.toLowerCase();
-  const matrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(0));
-  for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
-  for (let j = 0; j <= b.length; j++) matrix[j][0] = j;
-
-  for (let j = 1; j <= b.length; j++) {
-    for (let i = 1; i <= a.length; i++) {
-      const cost = a[i-1] === b[j-1] ? 0 : 1;
-      matrix[j][i] = Math.min(
-        matrix[j-1][i] + 1,
-        matrix[j][i-1] + 1,
-        matrix[j-1][i-1] + cost
-      );
-    }
+// Scroll-trigger animatie
+window.addEventListener('scroll', () => {
+  const container = document.getElementById('searchContainer');
+  const rect = container.getBoundingClientRect();
+  if(rect.top < window.innerHeight - 100){
+    container.classList.add('show');
   }
-  return matrix[b.length][a.length];
-}
-
-/* ------------------ FUZZY MATCH ------------------ */
-function vergelijkNamen(input, naam) {
-  const inp = input.toLowerCase().split(" ");
-  const parts = naam.toLowerCase().split(" ");
-  let score = 0;
-
-  inp.forEach(i => {
-    let best = Infinity;
-    parts.forEach(p => {
-      const sc = levenshtein(i, p);
-      if (sc < best) best = sc;
-    })
-    score += best;
-  });
-
-  return score;
-}
-
-/* ------------------ SUGGESTIES ------------------ */
-const naamInput = document.getElementById("naamInput");
-const suggestiesBox = document.getElementById("suggesties");
-const resultaatBox = document.getElementById("resultaat");
-
-naamInput.addEventListener("input", () => {
-  const val = naamInput.value.trim().toLowerCase();
-  resultaatBox.classList.remove("show");
-
-  if (val.length < 1) {
-    suggestiesBox.style.display = "none";
-    return;
-  }
-
-  const matches = gasten
-    .filter(g => g.naam.toLowerCase().includes(val))
-    .slice(0, 6);
-
-  if (matches.length === 0) {
-    suggestiesBox.style.display = "none";
-    return;
-  }
-
-  suggestiesBox.innerHTML = "";
-  matches.forEach(m => {
-    const div = document.createElement("div");
-    div.classList.add("suggestie-item");
-    div.textContent = m.naam;
-    div.onclick = () => {
-      naamInput.value = m.naam;
-      suggestiesBox.style.display = "none";
-      zoekPersoon();
-    };
-    suggestiesBox.appendChild(div);
-  });
-
-  suggestiesBox.style.display = "block";
 });
 
-/* ------------------ ZOEKEN ------------------ */
-function zoekPersoon() {
-  const input = naamInput.value.trim();
-  if (!input) return;
+// --- Gastenlijst ---
+const gasten = [
+    { naam: "Zalissa Vanhauter", tafel: 1 },
+    { naam: "Jani Swimberghe", tafel: 1 },
+    { naam: "Katrien Barremaecker", tafel: 1 },
+    { naam: "Chris Becue", tafel: 1 },
+    { naam: "Johan Swimberghe", tafel: 1 },
+    { naam: "Carine Van Belleghem", tafel: 1 },
 
-  let beste = null;
-  let besteScore = 999;
+    { naam: "Nicky Bruneel", tafel: 2 },
+    { naam: "Sylvie Steyaert", tafel: 2 },
+    { naam: "Joey De Queecker", tafel: 2 },
+    { naam: "Celine Steyaert", tafel: 2 },
+    { naam: "Brecht Velle", tafel: 2 },
+    { naam: "Charlotte Carrette", tafel: 2 },
+];
 
-  gasten.forEach(g => {
-    const score = vergelijkNamen(input, g.naam);
-    if (score < besteScore) {
-      besteScore = score;
-      beste = g;
+// --- LEVENSHTEIN ---
+function levenshtein(a, b) {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+    const matrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(0));
+    for(let i=0;i<=a.length;i++) matrix[0][i]=i;
+    for(let j=0;j<=b.length;j++) matrix[j][0]=j;
+    for(let j=1;j<=b.length;j++){
+        for(let i=1;i<=a.length;i++){
+            if(a[i-1]===b[j-1]) matrix[j][i]=matrix[j-1][i-1];
+            else matrix[j][i]=Math.min(matrix[j-1][i]+1,matrix[j][i-1]+1,matrix[j-1][i-1]+1);
+        }
     }
-  });
-
-  if (besteScore <= 4) {
-    resultaatBox.textContent = `Welkom! Jij zit aan tafel ${beste.tafel} 🍽️`;
-  } else {
-    resultaatBox.textContent = "Naam niet gevonden. Probeer opnieuw.";
-  }
-
-  setTimeout(() => resultaatBox.classList.add("show"), 50);
+    return matrix[b.length][a.length];
 }
 
-naamInput.addEventListener("change", zoekPersoon);
+function vergelijkNamen(inputNaam, gastNaam) {
+    const inputDelen = inputNaam.split(" ");
+    const gastDelen = gastNaam.split(" ");
+    let totaleScore = 0;
+    inputDelen.forEach(invoerWoord=>{
+        let beste=Infinity;
+        gastDelen.forEach(gastWoord=>{
+            const score = levenshtein(invoerWoord, gastWoord);
+            if(score<beste) beste=score;
+        });
+        totaleScore += beste;
+    });
+    return totaleScore;
+}
+
+function zoekPersoon() {
+    const input = document.getElementById("naamInput").value.trim().replace(/\s+/g, " ");
+    const resultaatDisplay = document.getElementById("resultaat");
+    resultaatDisplay.classList.remove("show");
+
+    if(!input){
+        resultaatDisplay.textContent = "Voer een naam in.";
+        resultaatDisplay.classList.add("show");
+        return;
+    }
+
+    let besteMatch = null;
+    let besteScore = 999;
+
+    gasten.forEach(gast=>{
+        const score = vergelijkNamen(input.toLowerCase(), gast.naam.toLowerCase());
+        if(score<besteScore){
+            besteScore=score;
+            besteMatch=gast;
+        }
+    });
+
+    if(besteScore <= 4){
+        resultaatDisplay.textContent = `Welkom! Je zit aan tafel ${besteMatch.tafel}.`;
+    } else {
+        resultaatDisplay.textContent = "Naam niet gevonden. Probeer opnieuw.";
+    }
+
+    setTimeout(()=>{ resultaatDisplay.classList.add("show"); },50);
+}
 </script>
 
 </body>
