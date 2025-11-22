@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tafelzoeker – Jani & Zalissa</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
 :root {
   --bg: #fdf8f4;
   --accent: #c97b7b;
   --text: #3f3f3f;
-  --card-bg: rgba(255, 255, 255, 0.92);
-  --title-bg: rgba(255,255,255,0.85);
 }
 
 * {
@@ -33,7 +32,7 @@ header {
   background: url('Foto1.jpg') center/cover no-repeat fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   text-align: center;
   padding: 2rem;
@@ -49,13 +48,16 @@ header::before {
   z-index: 1;
 }
 
+/* Find Your Seat box */
 .title-box {
-  position: relative;
+  position: absolute;
+  bottom: 20px;
+  width: 90%;
   z-index: 2;
-  background: var(--title-bg);
-  padding: 1.5rem 2rem;
+  background: rgba(255,255,255,0.1);
+  padding: 1rem 1.5rem;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: none;
   animation: fadeIn 1.2s ease forwards;
 }
 
@@ -63,19 +65,19 @@ header h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 4rem;
   color: var(--accent);
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  text-shadow: 3px 3px 8px rgba(0,0,0,0.5);
 }
 
 main {
   max-width: 600px;
-  margin: -100px auto 2rem;
+  margin: 20px auto 2rem;
   padding: 0 1rem;
   position: relative;
   z-index: 1;
 }
 
 .search-card {
-  background: var(--card-bg);
+  background: rgba(255, 255, 255, 0.92);
   padding: 2.5rem;
   border-radius: 20px;
   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
@@ -84,6 +86,7 @@ main {
   opacity: 0;
   transition: all 0.6s ease-in-out;
   will-change: transform;
+  position: relative;
 }
 
 .search-card.show {
@@ -93,6 +96,8 @@ main {
 }
 
 .search-card h2 {
+  background: none;
+  padding: 0;
   margin-bottom: 1rem;
   font-size: 2rem;
   color: var(--accent);
@@ -107,6 +112,8 @@ main {
   border: 2px solid var(--accent);
   font-size: 1.1rem;
   outline: none;
+  position: relative;
+  z-index: 5;
 }
 
 .search-card button {
@@ -143,17 +150,23 @@ main {
 }
 
 .suggestions {
-  margin-top: 0.5rem;
+  margin-top: 2px;
   text-align: left;
   max-height: 150px;
   overflow-y: auto;
   background: rgba(255,255,255,0.95);
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid var(--accent);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   padding: 0.5rem;
   display: none;
   opacity: 0;
   transition: opacity 0.4s ease;
+  width: 100%;
+  max-width: 400px;
+  position: absolute;
+  z-index: 10;
 }
 
 .suggestions.show {
@@ -171,24 +184,95 @@ main {
 .suggestions div:hover {
   background: var(--accent);
   color: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   transform: translateX(3px);
 }
 
+/* Back-link styling (zelfde kleur als titel) */
 .back-link {
   margin-top: 1.5rem;
   font-size: 0.95rem;
-  color: #555;
+  color: var(--accent);
+  text-align: center;
 }
 
 .back-link a {
-  color: var(--accent);
+  color: var(--accent) !important;
   text-decoration: none;
   font-weight: 600;
 }
 
 .back-link a:hover {
   text-decoration: underline;
+}
+
+/* Sticky toggle knop voor praktische info */
+.info-toggle {
+  position: sticky;
+  bottom: 20px;
+  max-width: 220px;
+  margin: 40px auto 0;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--accent);
+  border-radius: 18px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.6rem;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  z-index: 999;
+  backdrop-filter: blur(6px);
+}
+
+.info-toggle:hover {
+  background: rgba(255,255,255,1);
+  transform: scale(1.05);
+}
+
+#arrow {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+/* Inhoud van de box */
+.info-box-collapsible {
+  max-width: 800px;
+  margin: 0 auto 80px;
+  padding: 0 20px;
+  background: rgba(255,255,255,0.70);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+  line-height: 1.55;
+  font-size: 0.98rem;
+  color: #444;
+  backdrop-filter: blur(4px);
+
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: max-height 0.6s ease, padding 0.4s ease,
+             opacity 0.6s ease, transform 0.6s ease;
+}
+
+.info-box-collapsible.open {
+  padding: 20px 28px;
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-box-collapsible .groetjes {
+  margin-top: 1rem;
+  font-style: italic;
+  text-align: right;
+  color: var(--accent);
 }
 
 @keyframes fadeIn {
@@ -202,15 +286,14 @@ main {
   100% { box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
 }
 
+/* Responsive */
 @media (max-width:768px){
   header h1 { font-size: 2.5rem; }
-  main { margin-top: -70px; }
-  header { height: 60vh; min-height: 300px; }
-  .title-box { padding: 1rem 1.5rem; }
   .search-card h2 { font-size: 1.8rem; }
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -222,18 +305,33 @@ main {
 <main>
   <div class="search-card" id="searchCard">
     <h2>Vul je naam in</h2>
-    <input id="naamInput" type="text" placeholder="Typ hier je naam..." oninput="showSuggestions()">
-    <button onclick="zoekPersoon()">Zoek je tafel</button>
+    <input id="naamInput" type="text" placeholder="Typ hier je voornaam + naam" oninput="showSuggestions()">
     <div class="suggestions" id="suggestions"></div>
+
+    <button onclick="zoekPersoon()">Zoek je tafel</button>
     <div id="resultaat"></div>
 
     <div class="back-link">
       <a href="https://j-swb.github.io/trouwsiteJaniZalissa/" target="_blank">
-        Voor de volledige tafelschikking ga naar onze trouwwebsite
+        Klik hier voor de volledige tafelschikking
       </a>
     </div>
   </div>
 </main>
+
+<!-- Sticky toggle button + klapbaar blok -->
+<div class="info-toggle" onclick="toggleInfoBox()">
+  <span class="icon">❤</span>
+  <span>Praktische info</span>
+  <span id="arrow">▼</span>
+</div>
+
+<div class="info-box-collapsible" id="infoBox">
+  <p>All you can eat streetfood tussen <strong>19u en 21u</strong>. Daarna volgt het dessertbuffet.</p>
+  <p>Je hoeft je niet strikt aan je tafel te houden. Je mag gerust eens aan een andere tafel aanschuiven, of bij mooi weer buiten eten.</p>
+  <p>De openingsdans is voorzien rond <strong>22u30</strong>, gelieve dan binnen te zijn.</p>
+  <p class="groetjes">Met veel liefs, Jani & Zalissa</p>
+</div>
 
 <script>
 const searchCard = document.getElementById('searchCard');
@@ -242,8 +340,6 @@ window.addEventListener('scroll', () => {
   if(rect.top < window.innerHeight - 100){
     searchCard.classList.add('show');
   }
-  let offset = window.scrollY * 0.1;
-  searchCard.style.transform = `translateY(${50 - offset}px)`;
 });
 
 const gasten = [
@@ -312,8 +408,10 @@ function zoekPersoon(){
     }
   });
 
-  if(besteScore<=4){
-    resultaat.textContent=`Welkom! Je zit aan tafel ${besteMatch.tafel}.`;
+  if(besteScore <= 4){
+    resultaat.innerHTML = `
+      <p>Welkom! Je zit aan tafel <strong>${besteMatch.tafel}</strong>.</p>`;
+    resultaat.classList.add("show");
   }else{
     resultaat.textContent="Naam niet gevonden. Probeer opnieuw.";
   }
@@ -334,7 +432,7 @@ function showSuggestions(){
   matches.forEach(match=>{
     const div=document.createElement("div");
     div.textContent=match.naam;
-    div.onclick=()=>{ 
+    div.onclick=()=>{
       document.getElementById("naamInput").value=match.naam;
       suggestionBox.style.display="none";
       suggestionBox.classList.remove("show");
@@ -346,6 +444,23 @@ function showSuggestions(){
     setTimeout(()=>suggestionBox.classList.add("show"),50);
   }else{
     suggestionBox.style.display="none";
+  }
+}
+
+/* === KLAPBAAR INFOBLOK === */
+function toggleInfoBox(scroll = true) {
+  const box = document.getElementById("infoBox");
+  const arrow = document.getElementById("arrow");
+
+  const opening = !box.classList.contains("open");
+  box.classList.toggle("open");
+
+  arrow.style.transform = opening ? "rotate(180deg)" : "rotate(0deg)";
+
+  if (opening && scroll) {
+    setTimeout(() => {
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 350);
   }
 }
 </script>
