@@ -4,17 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tafelzoeker – Jani & Zalissa</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #fdf8f4;
   --accent: #c97b7b;
   --text: #3f3f3f;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --shadow: rgba(0,0,0,0.15);
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --title-bg: rgba(255,255,255,0.85);
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body {
   font-family: 'Quicksand', sans-serif;
@@ -24,62 +28,90 @@ body {
 }
 
 header {
-  height: 100vh;
-  background: linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0.05)), url('Foto1.jpg') center/cover no-repeat;
+  height: 80vh;
+  min-height: 400px;
+  background: url('Foto1.jpg') center/cover no-repeat fixed;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.container {
-  background: var(--card-bg);
-  padding: 3rem 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px var(--shadow);
   text-align: center;
-  max-width: 500px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  padding: 2rem;
+  position: relative;
 }
 
-.container.show {
-  opacity: 1;
-  transform: translateY(0);
+header::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.25);
+  z-index: 1;
 }
 
-.container h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.title-box {
+  position: relative;
+  z-index: 2;
+  background: var(--title-bg);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  animation: fadeIn 1.2s ease forwards;
+}
+
+header h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4rem;
   color: var(--accent);
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 }
 
-.container p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: var(--text);
+main {
+  max-width: 600px;
+  margin: -100px auto 2rem;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
 }
 
-input[type="text"] {
-  padding: 14px 18px;
+.search-card {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  text-align: center;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.6s ease-in-out;
+  will-change: transform;
+}
+
+.search-card.show {
+  transform: translateY(0);
+  opacity: 1;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+.search-card h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: var(--accent);
+  font-family: 'Great Vibes', cursive;
+}
+
+.search-card input {
+  padding: 14px 20px;
   width: 100%;
+  max-width: 400px;
   border-radius: 12px;
   border: 2px solid var(--accent);
-  font-size: 1rem;
+  font-size: 1.1rem;
   outline: none;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
 }
 
-input[type="text"]:focus {
-  border-color: #a45757;
-  box-shadow: 0 0 12px rgba(201,123,123,0.25);
-}
-
-button {
-  padding: 12px 28px;
+.search-card button {
+  margin-top: 1rem;
+  padding: 12px 24px;
   border: none;
   border-radius: 12px;
   background: var(--accent);
@@ -87,22 +119,21 @@ button {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s;
 }
 
-button:hover {
+.search-card button:hover {
   background: #a45757;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transform: scale(1.05);
 }
 
 #resultaat {
   margin-top: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: bold;
   color: var(--accent);
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.3s ease;
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
   transform: translateY(10px);
 }
 
@@ -111,165 +142,213 @@ button:hover {
   transform: translateY(0);
 }
 
-/* Autocomplete dropdown */
-.autocomplete-suggestions {
+.suggestions {
+  margin-top: 0.5rem;
   text-align: left;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   max-height: 150px;
   overflow-y: auto;
-  background: rgba(255,255,255,0.97);
-  margin-top: 0.2rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.5rem;
   display: none;
-  position: absolute;
-  width: calc(100% - 40px);
-  z-index: 10;
   opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s ease-out;
+  transition: opacity 0.4s ease;
 }
 
-.autocomplete-suggestions.show {
+.suggestions.show {
   display: block;
   opacity: 1;
-  transform: translateY(0);
 }
 
-.autocomplete-suggestion {
+.suggestions div {
   padding: 8px 12px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.3s ease;
+  border-radius: 6px;
 }
 
-.autocomplete-suggestion:hover {
+.suggestions div:hover {
   background: var(--accent);
   color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transform: translateX(3px);
+}
+
+.back-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.back-link a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-link a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(20px);}
+  to {opacity:1; transform: translateY(0);}
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+  50% { box-shadow: 0 15px 40px rgba(201,123,123,0.4); }
+  100% { box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+}
+
+@media (max-width:768px){
+  header h1 { font-size: 2.5rem; }
+  main { margin-top: -70px; }
+  header { height: 60vh; min-height: 300px; }
+  .title-box { padding: 1rem 1.5rem; }
+  .search-card h2 { font-size: 1.8rem; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="container" id="container">
+  <div class="title-box">
     <h1>Find Your Seat</h1>
-    <p>Ontdek waar je mag zitten op onze speciale dag 🌿🍴</p>
-    <div style="position:relative;">
-      <input id="naamInput" type="text" placeholder="Vul je naam in..." autocomplete="off">
-      <div class="autocomplete-suggestions" id="suggestions"></div>
-    </div>
-    <button onclick="zoekPersoon()">Zoek</button>
-    <div id="resultaat"></div>
   </div>
 </header>
 
+<main>
+  <div class="search-card" id="searchCard">
+    <h2>Vul je naam in</h2>
+    <input id="naamInput" type="text" placeholder="Typ hier je naam..." oninput="showSuggestions()">
+    <button onclick="zoekPersoon()">Zoek je tafel</button>
+    <div class="suggestions" id="suggestions"></div>
+    <div id="resultaat"></div>
+
+    <div class="back-link">
+      <a href="https://j-swb.github.io/trouwsiteJaniZalissa/" target="_blank">
+        Voor de volledige tafelschikking ga naar onze trouwwebsite
+      </a>
+    </div>
+  </div>
+</main>
+
 <script>
-window.addEventListener('load', () => {
-  document.getElementById('container').classList.add('show');
+const searchCard = document.getElementById('searchCard');
+window.addEventListener('scroll', () => {
+  const rect = searchCard.getBoundingClientRect();
+  if(rect.top < window.innerHeight - 100){
+    searchCard.classList.add('show');
+  }
+  let offset = window.scrollY * 0.1;
+  searchCard.style.transform = `translateY(${50 - offset}px)`;
 });
 
-// Gastenlijst alfabetisch
 const gasten = [
-    { naam: "Brecht Velle", tafel: 2 },
     { naam: "Carine Van Belleghem", tafel: 1 },
-    { naam: "Charlotte Carrette", tafel: 2 },
     { naam: "Chris Becue", tafel: 1 },
-    { naam: "Celine Steyaert", tafel: 2 },
     { naam: "Jani Swimberghe", tafel: 1 },
-    { naam: "Joey De Queecker", tafel: 2 },
-    { naam: "Eline Vermaercke", tafel: 2 },
     { naam: "Johan Swimberghe", tafel: 1 },
     { naam: "Katrien Barremaecker", tafel: 1 },
+    { naam: "Zalissa Vanhauter", tafel: 1 },
+    { naam: "Brecht Velle", tafel: 2 },
+    { naam: "Celine Steyaert", tafel: 2 },
+    { naam: "Charlotte Carrette", tafel: 2 },
+    { naam: "Joey De Queecker", tafel: 2 },
     { naam: "Nicky Bruneel", tafel: 2 },
     { naam: "Sylvie Steyaert", tafel: 2 },
-    { naam: "Zalissa Vanhauter", tafel: 1 }
 ].sort((a,b) => a.naam.localeCompare(b.naam));
 
-// Autocomplete suggesties
-const naamInput = document.getElementById('naamInput');
-const suggestionsBox = document.getElementById('suggestions');
+function levenshtein(a,b){
+  a=a.toLowerCase(); b=b.toLowerCase();
+  const matrix=Array(b.length+1).fill(null).map(()=>Array(a.length+1).fill(0));
+  for(let i=0;i<=a.length;i++) matrix[0][i]=i;
+  for(let j=0;j<=b.length;j++) matrix[j][0]=j;
+  for(let j=1;j<=b.length;j++){
+    for(let i=1;i<=a.length;i++){
+      if(a[i-1]===b[j-1]) matrix[j][i]=matrix[j-1][i-1];
+      else matrix[j][i]=Math.min(matrix[j-1][i]+1,matrix[j][i-1]+1,matrix[j-1][i-1]+1);
+    }
+  }
+  return matrix[b.length][a.length];
+}
 
-naamInput.addEventListener('input', () => {
-  const input = naamInput.value.toLowerCase();
-  suggestionsBox.innerHTML = '';
-  if(!input) { suggestionsBox.classList.remove('show'); return; }
-
-  const matches = gasten.filter(g => g.naam.toLowerCase().includes(input));
-  matches.forEach(m => {
-    const div = document.createElement('div');
-    div.className = 'autocomplete-suggestion';
-    div.textContent = m.naam;
-    div.addEventListener('click', () => {
-      naamInput.value = m.naam;
-      suggestionsBox.classList.remove('show');
+function vergelijkNamen(inputNaam,gastNaam){
+  const inputDelen=inputNaam.split(" ");
+  const gastDelen=gastNaam.split(" ");
+  let totaleScore=0;
+  inputDelen.forEach(invoerWoord=>{
+    let beste=Infinity;
+    gastDelen.forEach(gastWoord=>{
+      const score=levenshtein(invoerWoord,gastWoord);
+      if(score<beste) beste=score;
     });
-    suggestionsBox.appendChild(div);
+    totaleScore+=beste;
   });
-  if(matches.length) suggestionsBox.classList.add('show');
-  else suggestionsBox.classList.remove('show');
-});
-
-function levenshtein(a, b) {
-    a = a.toLowerCase(); b = b.toLowerCase();
-    const matrix = Array(b.length+1).fill(null).map(()=>Array(a.length+1).fill(0));
-    for(let i=0;i<=a.length;i++) matrix[0][i]=i;
-    for(let j=0;j<=b.length;j++) matrix[j][0]=j;
-    for(let j=1;j<=b.length;j++){
-        for(let i=1;i<=a.length;i++){
-            if(a[i-1]===b[j-1]) matrix[j][i]=matrix[j-1][i-1];
-            else matrix[j][i]=Math.min(matrix[j-1][i]+1,matrix[j][i-1]+1,matrix[j-1][i-1]+1);
-        }
-    }
-    return matrix[b.length][a.length];
+  return totaleScore;
 }
 
-function vergelijkNamen(inputNaam, gastNaam) {
-    const inputDelen = inputNaam.split(" ");
-    const gastDelen = gastNaam.split(" ");
-    let totaleScore = 0;
-    inputDelen.forEach(invoerWoord=>{
-        let beste=Infinity;
-        gastDelen.forEach(gastWoord=>{
-            const score = levenshtein(invoerWoord, gastWoord);
-            if(score<beste) beste=score;
-        });
-        totaleScore += beste;
-    });
-    return totaleScore;
+function zoekPersoon(){
+  const input=document.getElementById("naamInput").value.trim().replace(/\s+/g," ");
+  const resultaat=document.getElementById("resultaat");
+  resultaat.classList.remove("show");
+
+  if(!input){
+    resultaat.textContent="Voer een naam in.";
+    resultaat.classList.add("show");
+    return;
+  }
+
+  let besteMatch=null;
+  let besteScore=999;
+
+  gasten.forEach(gast=>{
+    const score=vergelijkNamen(input.toLowerCase(),gast.naam.toLowerCase());
+    if(score<besteScore){
+      besteScore=score;
+      besteMatch=gast;
+    }
+  });
+
+  if(besteScore<=4){
+    resultaat.textContent=`Welkom! Je zit aan tafel ${besteMatch.tafel}.`;
+  }else{
+    resultaat.textContent="Naam niet gevonden. Probeer opnieuw.";
+  }
+
+  setTimeout(()=>{ resultaat.classList.add("show"); },50);
 }
 
-function zoekPersoon() {
-    const input = naamInput.value.trim().replace(/\s+/g, " ");
-    const resultaat = document.getElementById("resultaat");
-    resultaat.classList.remove("show");
-
-    if(!input){
-        resultaat.textContent = "Voer een naam in.";
-        resultaat.classList.add("show");
-        return;
-    }
-
-    let besteMatch = null;
-    let besteScore = 999;
-
-    gasten.forEach(gast=>{
-        const score = vergelijkNamen(input.toLowerCase(), gast.naam.toLowerCase());
-        if(score < besteScore){
-            besteScore = score;
-            besteMatch = gast;
-        }
-    });
-
-    if(besteScore <= 4){
-        resultaat.textContent = `Welkom! Je zit aan tafel ${besteMatch.tafel}. Je bent vrij om ook eens aan een andere tafel te schuiven.`;
-    } else {
-        resultaat.textContent = "Naam niet gevonden. Probeer opnieuw.";
-    }
-
-    setTimeout(()=>{ resultaat.classList.add("show"); },50);
+function showSuggestions(){
+  const input=document.getElementById("naamInput").value.toLowerCase();
+  const suggestionBox=document.getElementById("suggestions");
+  suggestionBox.innerHTML="";
+  suggestionBox.classList.remove("show");
+  if(!input){
+    suggestionBox.style.display="none";
+    return;
+  }
+  const matches=gasten.filter(g=>g.naam.toLowerCase().includes(input));
+  matches.forEach(match=>{
+    const div=document.createElement("div");
+    div.textContent=match.naam;
+    div.onclick=()=>{ 
+      document.getElementById("naamInput").value=match.naam;
+      suggestionBox.style.display="none";
+      suggestionBox.classList.remove("show");
+    };
+    suggestionBox.appendChild(div);
+  });
+  if(matches.length){
+    suggestionBox.style.display="block";
+    setTimeout(()=>suggestionBox.classList.add("show"),50);
+  }else{
+    suggestionBox.style.display="none";
+  }
 }
 </script>
 
 </body>
 </html>
-
