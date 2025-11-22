@@ -10,7 +10,7 @@
   --bg: #fdf8f4;
   --accent: #c97b7b;
   --text: #3f3f3f;
-  --search-bg: #f7e5e5;
+  --card-bg: #f7e5e5;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -23,62 +23,56 @@ body {
 }
 
 header {
-  height: 100vh;
-  background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('Foto1.jpg') center/cover no-repeat;
+  height: 90vh;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0.1)), url('Foto1.jpg') center/cover no-repeat;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: white;
-  position: relative;
   padding: 2rem;
 }
 
-.header-content {
-  background: rgba(0,0,0,0.4);
-  padding: 2rem;
-  border-radius: 16px;
-  animation: fadeInDown 2s ease-in-out;
-}
-
-.header-content h1 {
+header h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
 }
 
-.header-content p {
-  font-size: 1.2rem;
-  font-style: italic;
+header p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
 }
 
 main {
-  max-width: 800px;
-  margin: -100px auto 0; /* omhoog plaatsen zodat het over header komt */
-  padding: 2rem;
+  max-width: 600px;
+  margin: -80px auto 2rem;
+  padding: 0 1rem;
   position: relative;
   z-index: 1;
 }
 
-.search-container {
-  background: var(--search-bg);
+.search-card {
+  background: var(--card-bg);
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  text-align: center;
   transform: translateY(50px);
   opacity: 0;
   transition: all 0.6s ease-in-out;
 }
 
-.search-container.show {
+.search-card.show {
   transform: translateY(0);
   opacity: 1;
 }
 
-.search-container input {
+.search-card input {
   padding: 14px 20px;
   width: 100%;
   max-width: 400px;
@@ -88,7 +82,7 @@ main {
   outline: none;
 }
 
-.search-container button {
+.search-card button {
   margin-top: 1rem;
   padding: 12px 24px;
   border: none;
@@ -96,22 +90,23 @@ main {
   background: var(--accent);
   color: white;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-.search-container button:hover {
+.search-card button:hover {
   background: #a45757;
 }
 
 #resultaat {
   margin-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--accent);
   opacity: 0;
-  transition: opacity 1s ease-in-out, transform 0.6s ease-in-out;
-  transform: translateY(20px);
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(10px);
 }
 
 #resultaat.show {
@@ -119,47 +114,37 @@ main {
   transform: translateY(0);
 }
 
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 @media (max-width:768px){
-  header h1{ font-size:2.5rem; }
-  .header-content p{ font-size:1rem; }
-  main{ margin-top:-50px; padding:1rem; }
+  header h1 { font-size: 2.5rem; }
+  header p { font-size: 1.2rem; }
+  main{ margin-top:-60px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-content">
-    <h1>Find your seat!</h1>
-    <p>Ontdek waar je plaats mag nemen op onze speciale dag en geniet van een onvergetelijk feest 🌿🍴</p>
-  </div>
+  <h1>Find Your Seat</h1>
+  <p>Ontdek waar je mag zitten op onze speciale dag 🌿🍴</p>
 </header>
 
 <main>
-  <div class="search-container" id="searchContainer">
-    <p>Fijn dat je er bent op onze speciale dag! Vul je naam in om te ontdekken aan welke tafel je plaats mag nemen. Je bent vrij om ook eens aan een andere tafel te schuiven en bij mooi weer buiten te genieten van het feest met onze foodtruck. Tussen 19u en 21u kun je zoveel aanschuiven als je wilt! 🌿🍴</p>
-    <input id="naamInput" type="text" placeholder="bv. Katrien Barremaecker">
+  <div class="search-card" id="searchCard">
+    <input id="naamInput" type="text" placeholder="Vul je naam in...">
     <button onclick="zoekPersoon()">Zoek</button>
     <div id="resultaat"></div>
   </div>
 </main>
 
 <script>
-// Scroll-trigger animatie
 window.addEventListener('scroll', () => {
-  const container = document.getElementById('searchContainer');
-  const rect = container.getBoundingClientRect();
+  const card = document.getElementById('searchCard');
+  const rect = card.getBoundingClientRect();
   if(rect.top < window.innerHeight - 100){
-    container.classList.add('show');
+    card.classList.add('show');
   }
 });
 
-// --- Gastenlijst ---
 const gasten = [
     { naam: "Zalissa Vanhauter", tafel: 1 },
     { naam: "Jani Swimberghe", tafel: 1 },
@@ -176,11 +161,9 @@ const gasten = [
     { naam: "Charlotte Carrette", tafel: 2 },
 ];
 
-// --- LEVENSHTEIN ---
 function levenshtein(a, b) {
-    a = a.toLowerCase();
-    b = b.toLowerCase();
-    const matrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(0));
+    a = a.toLowerCase(); b = b.toLowerCase();
+    const matrix = Array(b.length+1).fill(null).map(()=>Array(a.length+1).fill(0));
     for(let i=0;i<=a.length;i++) matrix[0][i]=i;
     for(let j=0;j<=b.length;j++) matrix[j][0]=j;
     for(let j=1;j<=b.length;j++){
@@ -209,12 +192,12 @@ function vergelijkNamen(inputNaam, gastNaam) {
 
 function zoekPersoon() {
     const input = document.getElementById("naamInput").value.trim().replace(/\s+/g, " ");
-    const resultaatDisplay = document.getElementById("resultaat");
-    resultaatDisplay.classList.remove("show");
+    const resultaat = document.getElementById("resultaat");
+    resultaat.classList.remove("show");
 
     if(!input){
-        resultaatDisplay.textContent = "Voer een naam in.";
-        resultaatDisplay.classList.add("show");
+        resultaat.textContent = "Voer een naam in.";
+        resultaat.classList.add("show");
         return;
     }
 
@@ -223,21 +206,22 @@ function zoekPersoon() {
 
     gasten.forEach(gast=>{
         const score = vergelijkNamen(input.toLowerCase(), gast.naam.toLowerCase());
-        if(score<besteScore){
-            besteScore=score;
-            besteMatch=gast;
+        if(score < besteScore){
+            besteScore = score;
+            besteMatch = gast;
         }
     });
 
     if(besteScore <= 4){
-        resultaatDisplay.textContent = `Welkom! Je zit aan tafel ${besteMatch.tafel}.`;
+        resultaat.textContent = `Welkom! Je zit aan tafel ${besteMatch.tafel}.;
     } else {
-        resultaatDisplay.textContent = "Naam niet gevonden. Probeer opnieuw.";
+        resultaat.textContent = "Naam niet gevonden. Probeer opnieuw.";
     }
 
-    setTimeout(()=>{ resultaatDisplay.classList.add("show"); },50);
+    setTimeout(()=>{ resultaat.classList.add("show"); },50);
 }
 </script>
 
 </body>
 </html>
+
