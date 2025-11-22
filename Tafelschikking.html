@@ -28,20 +28,16 @@ body {
 
 /* =================== HEADER =================== */
 header {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.header-img {
-  width: 100%;
-  max-height: 80vh;   /* Past zich aan schermhoogte aan */
-  object-fit: contain; /* Altijd volledig zichtbaar */
-  display: block;
-}
+      height: 100vh;
+      background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('Foto1.jpg') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 2rem;
+      position: relative;
+    }
 
 header::before {
   content: "";
@@ -312,7 +308,6 @@ main {
 <body>
 
 <header>
-  <img src="Foto1.jpg" alt="Header foto" class="header-img">
   <div class="title-box">
     <h1>Find Your Seat</h1>
   </div>
@@ -490,3 +485,4 @@ function toggleInfoBox(scroll = true) {
 
 </body>
 </html>
+
