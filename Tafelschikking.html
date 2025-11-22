@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tafelzoeker – Jani & Zalissa</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #fdf8f4;
   --accent: #c97b7b;
   --text: #3f3f3f;
-  --card-bg: #f7e5e5;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --shadow: rgba(0,0,0,0.15);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -23,68 +24,62 @@ body {
 }
 
 header {
-  height: 90vh;
-  background: linear-gradient(to top, rgba(0,0,0,0.35), rgba(0,0,0,0.1)), url('Foto1.jpg') center/cover no-repeat;
+  height: 100vh;
+  background: linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0.05)), url('Foto1.jpg') center/cover no-repeat;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  color: white;
-  padding: 2rem;
 }
 
-header h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 4rem;
-  margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
-}
-
-header p {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-}
-
-main {
-  max-width: 600px;
-  margin: -80px auto 2rem;
-  padding: 0 1rem;
-  position: relative;
-  z-index: 1;
-}
-
-.search-card {
+.container {
   background: var(--card-bg);
-  padding: 2rem;
+  padding: 3rem 2.5rem;
   border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px var(--shadow);
   text-align: center;
-  transform: translateY(50px);
+  max-width: 500px;
   opacity: 0;
-  transition: all 0.6s ease-in-out;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
 }
 
-.search-card.show {
-  transform: translateY(0);
+.container.show {
   opacity: 1;
+  transform: translateY(0);
 }
 
-.search-card input {
-  padding: 14px 20px;
+.container h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.container p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+input[type="text"] {
+  padding: 14px 18px;
   width: 100%;
-  max-width: 400px;
   border-radius: 12px;
   border: 2px solid var(--accent);
-  font-size: 1.1rem;
+  font-size: 1rem;
   outline: none;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
 }
 
-.search-card button {
-  margin-top: 1rem;
-  padding: 12px 24px;
+input[type="text"]:focus {
+  border-color: #a45757;
+  box-shadow: 0 0 12px rgba(201,123,123,0.25);
+}
+
+button {
+  padding: 12px 28px;
   border: none;
   border-radius: 12px;
   background: var(--accent);
@@ -92,20 +87,22 @@ main {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
 }
 
-.search-card button:hover {
+button:hover {
   background: #a45757;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 #resultaat {
   margin-top: 1rem;
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--accent);
   opacity: 0;
-  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transition: opacity 0.5s ease, transform 0.3s ease;
   transform: translateY(10px);
 }
 
@@ -114,52 +111,103 @@ main {
   transform: translateY(0);
 }
 
-@media (max-width:768px){
-  header h1 { font-size: 2.5rem; }
-  header p { font-size: 1.2rem; }
-  main{ margin-top:-60px; }
+/* Autocomplete dropdown */
+.autocomplete-suggestions {
+  text-align: left;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.97);
+  margin-top: 0.2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  display: none;
+  position: absolute;
+  width: calc(100% - 40px);
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-out;
+}
+
+.autocomplete-suggestions.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.autocomplete-suggestion {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.autocomplete-suggestion:hover {
+  background: var(--accent);
+  color: white;
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Find Your Seat</h1>
-  <p>Ontdek waar je mag zitten op onze speciale dag 🌿🍴</p>
-</header>
-
-<main>
-  <div class="search-card" id="searchCard">
-    <input id="naamInput" type="text" placeholder="Vul je naam in...">
+  <div class="container" id="container">
+    <h1>Find Your Seat</h1>
+    <p>Ontdek waar je mag zitten op onze speciale dag 🌿🍴</p>
+    <div style="position:relative;">
+      <input id="naamInput" type="text" placeholder="Vul je naam in..." autocomplete="off">
+      <div class="autocomplete-suggestions" id="suggestions"></div>
+    </div>
     <button onclick="zoekPersoon()">Zoek</button>
     <div id="resultaat"></div>
   </div>
-</main>
+</header>
 
 <script>
-window.addEventListener('scroll', () => {
-  const card = document.getElementById('searchCard');
-  const rect = card.getBoundingClientRect();
-  if(rect.top < window.innerHeight - 100){
-    card.classList.add('show');
-  }
+window.addEventListener('load', () => {
+  document.getElementById('container').classList.add('show');
 });
 
+// Gastenlijst alfabetisch
 const gasten = [
-    { naam: "Zalissa Vanhauter", tafel: 1 },
-    { naam: "Jani Swimberghe", tafel: 1 },
-    { naam: "Katrien Barremaecker", tafel: 1 },
-    { naam: "Chris Becue", tafel: 1 },
-    { naam: "Johan Swimberghe", tafel: 1 },
+    { naam: "Brecht Velle", tafel: 2 },
     { naam: "Carine Van Belleghem", tafel: 1 },
-
+    { naam: "Charlotte Carrette", tafel: 2 },
+    { naam: "Chris Becue", tafel: 1 },
+    { naam: "Celine Steyaert", tafel: 2 },
+    { naam: "Jani Swimberghe", tafel: 1 },
+    { naam: "Joey De Queecker", tafel: 2 },
+    { naam: "Eline Vermaercke", tafel: 2 },
+    { naam: "Johan Swimberghe", tafel: 1 },
+    { naam: "Katrien Barremaecker", tafel: 1 },
     { naam: "Nicky Bruneel", tafel: 2 },
     { naam: "Sylvie Steyaert", tafel: 2 },
-    { naam: "Joey De Queecker", tafel: 2 },
-    { naam: "Celine Steyaert", tafel: 2 },
-    { naam: "Brecht Velle", tafel: 2 },
-    { naam: "Charlotte Carrette", tafel: 2 },
-];
+    { naam: "Zalissa Vanhauter", tafel: 1 }
+].sort((a,b) => a.naam.localeCompare(b.naam));
+
+// Autocomplete suggesties
+const naamInput = document.getElementById('naamInput');
+const suggestionsBox = document.getElementById('suggestions');
+
+naamInput.addEventListener('input', () => {
+  const input = naamInput.value.toLowerCase();
+  suggestionsBox.innerHTML = '';
+  if(!input) { suggestionsBox.classList.remove('show'); return; }
+
+  const matches = gasten.filter(g => g.naam.toLowerCase().includes(input));
+  matches.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'autocomplete-suggestion';
+    div.textContent = m.naam;
+    div.addEventListener('click', () => {
+      naamInput.value = m.naam;
+      suggestionsBox.classList.remove('show');
+    });
+    suggestionsBox.appendChild(div);
+  });
+  if(matches.length) suggestionsBox.classList.add('show');
+  else suggestionsBox.classList.remove('show');
+});
 
 function levenshtein(a, b) {
     a = a.toLowerCase(); b = b.toLowerCase();
@@ -191,7 +239,7 @@ function vergelijkNamen(inputNaam, gastNaam) {
 }
 
 function zoekPersoon() {
-    const input = document.getElementById("naamInput").value.trim().replace(/\s+/g, " ");
+    const input = naamInput.value.trim().replace(/\s+/g, " ");
     const resultaat = document.getElementById("resultaat");
     resultaat.classList.remove("show");
 
@@ -213,7 +261,7 @@ function zoekPersoon() {
     });
 
     if(besteScore <= 4){
-        resultaat.textContent = `Welkom! Je zit aan tafel ${besteMatch.tafel}.;
+        resultaat.textContent = `Welkom! Je zit aan tafel ${besteMatch.tafel}. Je bent vrij om ook eens aan een andere tafel te schuiven.`;
     } else {
         resultaat.textContent = "Naam niet gevonden. Probeer opnieuw.";
     }
