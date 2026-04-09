@@ -205,6 +205,19 @@ main {
   transform: translateY(0);
 }
 
+.result-box .tafel-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #d94f4f;
+  background: rgba(217,79,79,0.15);
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  box-shadow: 0 4px 10px rgba(217,79,79,0.2);
+  display: inline-block;
+}
+
 /* Practical Info Toggle */
 .info-toggle {
   background: #fff;
@@ -305,7 +318,7 @@ main {
 <div class="info-box-collapsible" id="infoBox" aria-expanded="false">
   <p style="margin-bottom:1.5rem;">De foodtruck is open tussen <strong>19u en 21u</strong>. Tijdens deze twee uur kunnen jullie onbeperkt (all you can eat) genieten van een selectie streetfoodklassiekers. Daarna volgt het dessertbuffet.</p>
   <p style="margin-bottom:1.5rem;">Je hoeft je niet strikt aan je tafel te houden. Voel je vrij om even bij een andere tafel aan te schuiven, of bij mooi weer buiten te genieten van je maaltijd.</p>
-  <p>De openingsdans is voorzien rond <strong>22u30</strong>, gelieve dan binnen te zijn.</p>
+  <p>De openingsdans is voorzien rond <strong>22u30</strong>, kom dus op tijd binnen.</p>
   <p class="groetjes">Met veel liefs, Jani & Zalissa</p>
 </div>
 
@@ -364,28 +377,28 @@ const gasten = [
     { naam: "Charlotte Carrette", tafel: 4, bijnaam: "Charlie", koppel: "Pieterjan Claeys",  },
     { naam: "Pieterjan Claeys", tafel: 4, bijnaam: "PJ", koppel: "Charlotte Carrette", },
 
-    { naam: "Jani Swimberghe", tafel: 5 },
-    { naam: "Zalissa Vanhauter", tafel: 5 },
-    { naam: "Niels Vandewiele", tafel: 5, },
-    { naam: "Sharon Dufour", tafel: 5 },
-    { naam: "Julie De Roy", tafel: 5 },
-    { naam: "Dieter Masyn", tafel: 5 },
-    { naam: "Maaike Casteleyn", tafel: 5, boodschap: "Super dat jullie er zijn! Tijd om herinneringen te maken die we morgenvroeg misschien niet meer herinneren."  },
-    { naam: "Stijn Wyseur", tafel: 5, boodschap: "Super dat jullie er zijn! Tijd om herinneringen te maken die we morgenvroeg misschien niet meer herinneren." },
+    { naam: "Jani Swimberghe", tafel: 5, koppel: "Zalissa Vanhauter", },
+    { naam: "Zalissa Vanhauter", tafel: 5, koppel: "Jani Swimberghe", },
+    { naam: "Niels Vandewiele", tafel: 5, koppel: "Sharon Dufour", },
+    { naam: "Sharon Dufour", tafel: 5, koppel: "Niels Vandewiele", },
+    { naam: "Julie De Roy", tafel: 5, koppel: "Dieter Masyn", },
+    { naam: "Dieter Masyn", tafel: 5, koppel: "Julie De Roy", },
+    { naam: "Maaike Casteleyn", tafel: 5, koppel: "Stijn Wyseur", boodschap: "Super dat jullie er zijn! Tijd om herinneringen te maken die we morgenvroeg misschien niet meer herinneren."  },
+    { naam: "Stijn Wyseur", tafel: 5, koppel: "Maaike Casteleyn", boodschap: "Super dat jullie er zijn! Tijd om herinneringen te maken die we morgenvroeg misschien niet meer herinneren." },
 
-    { naam: "Emma Corty", tafel: 6 },
-    { naam: "Sven Jonckheere", tafel: 6 },
-    { naam: "Kenny Cools", tafel: 6 },
-    { naam: "Alexander Walraedt", tafel: 6 },
+    { naam: "Emma Corty", tafel: 6, koppel: "Sven Jonckheere", },
+    { naam: "Sven Jonckheere", tafel: 6, koppel: "Emma Corty", },
+    { naam: "Kenny Cools", tafel: 6, koppel: "Alexander Walraedt", },
+    { naam: "Alexander Walraedt", bijnaam: "Alex", tafel: 6, koppel: "Kenny Cools", },
     { naam: "Louise De Bisscop", tafel: 6 },
-    { naam: "Sam Clauwaert", tafel: 6 },
-    { naam: "Lisa Vancauwenberghe", tafel: 6 },
+    { naam: "Sam Clauwaert", tafel: 6, koppel: "Lisa Vancauwenberghe", },
+    { naam: "Lisa Vancauwenberghe", tafel: 6, koppel: "Sam Clauwaert", },
 
     { naam: "Alec Vanhove", tafel: 7 },
-    { naam: "Michiel Rommel", tafel: 7 },
-    { naam: "Jenna Braeckman", tafel: 7 },
-    { naam: "Niels De Buck", tafel: 7 },
-    { naam: "Margaux Pauwels", tafel: 7 },
+    { naam: "Michiel Rommel", tafel: 7, koppel: "Jenna Braeckman", },
+    { naam: "Jenna Braeckman", tafel: 7, koppel: "Michiel Rommel", },
+    { naam: "Niels De Buck", tafel: 7, koppel: "Margaux Pauwels", },
+    { naam: "Margaux Pauwels", tafel: 7, koppel: "Niels De Buck", },
     { naam: "Joakim Janssens", tafel: 7, koppel: "Jan Besbrugge", boodschap: "Proficiat met jullie eerste huwelijksjaar! Vorig jaar stonden jullie in de spotlight, dit jaar is het aan ons. Leuk dat jullie erbij zijn!"},
     { naam: "Jan Besbrugge", tafel: 7, koppel: "Joakim Janssens", boodschap: "Proficiat met jullie eerste huwelijksjaar! Vorig jaar stonden jullie in de spotlight, dit jaar is het aan ons. Leuk dat jullie erbij zijn!"},
     { naam: "Jurgen Vanderhaeghe", tafel: 7 },
@@ -395,35 +408,35 @@ const gasten = [
     { naam: "Veerle Mechelaere", tafel: 7 },
 
     { naam: "Timothy Dekeyzer", tafel: 8, bijnaam: "Timomo" },
-    { naam: "Thomas Lievens", tafel: 8, bijnaam: "Thomasson" },
-    { naam: "Evelyne De Man", tafel: 8 },
-    { naam: "Jorgi Swimberghe", tafel: 8, bijnaam: "Apenkoptje" },
-    { naam: "Lore Cuypers", tafel: 8 },
-    { naam: "Jens Swimberghe", tafel: 8, bijnaam: "Jeantje" },
-    { naam: "Daisy Dautricourt", tafel: 8 },
+    { naam: "Thomas Lievens", tafel: 8, bijnaam: "Thomasson", koppel: "Evelyne De Man", },
+    { naam: "Evelyne De Man", tafel: 8, koppel: "Thomas Lievens", },
+    { naam: "Jorgi Swimberghe", tafel: 8, bijnaam: "Apenkoptje", koppel: "Lore Cuypers", },
+    { naam: "Lore Cuypers", tafel: 8, koppel: "Jorgi Swimberghe", },
+    { naam: "Jens Swimberghe", tafel: 8, bijnaam: "Jeantje", koppel: "Daisy Dautricourt", },
+    { naam: "Daisy Dautricourt", tafel: 8, koppel: "Jens Swimberghe", },
 
-    { naam: "Joachim Reybrouck", tafel: 9, bijnaam: "Jooten" },
-    { naam: "Luna Samson", tafel: 9 },
-    { naam: "Steve Van De Zande", tafel: 9 },
-    { naam: "Kaatje Loeys", tafel: 9 },
-    { naam: "Tom Van de Woestyne", tafel: 9 },
-    { naam: "Aurelie Rodeyns", tafel: 9 },
-    { naam: "Tim Adam", tafel: 9 },
-    { naam: "Vanessa Loncke", tafel: 9 },
+    { naam: "Joachim Reybrouck", tafel: 9, bijnaam: "Jooten", koppel: "Luna Samson", },
+    { naam: "Luna Samson", tafel: 9, koppel: "Joachim Reybrouck", },
+    { naam: "Steve Van De Zande", tafel: 9, koppel: "Kaatje Loeys", },
+    { naam: "Kaatje Loeys", tafel: 9, koppel: "Steve Van De Zande", },
+    { naam: "Tom Van de Woestyne", tafel: 9, koppel: "Aurelie Rodeyns" },
+    { naam: "Aurelie Rodeyns", tafel: 9, koppel: "Tom Van de Woestyne" },
+    { naam: "Tim Adam", tafel: 9, koppel: "Vanessa Loncke" },
+    { naam: "Vanessa Loncke", tafel: 9, koppel: "Tim Adam" },
     
-    { naam: "Hilde Uittenhove", tafel: 10 },
-    { naam: "Dominique Byl", tafel: 10 },
+    { naam: "Hilde Uittenhove", tafel: 10, koppel: "Dominique Byl" },
+    { naam: "Dominique Byl", tafel: 10, koppel: "Hilde Uittenhove" },
     { naam: "Shanna Kangria", tafel: 10 },
-    { naam: "Greet Allemeersch", tafel: 10 },
-    { naam: "Gino Deceuninck", tafel: 10 },
-    { naam: "Shane Somers", tafel: 10 },
-    { naam: "Lieselotte Cachard", tafel: 10 },
-    { naam: "Nathalie Cromheecke", tafel: 10 },
-    { naam: "Thomas Van Deursen", tafel: 10 },
-    { naam: "Cindy Vuylsteke", tafel: 10 },
-    { naam: "Pol Pauwels", tafel: 10 },
-    { naam: "Annemie De Scheppere", tafel: 10 },
-    { naam: "Bart Vantorre", tafel: 10 },
+    { naam: "Greet Allemeersch", tafel: 10, koppel: "Gino Deceuninck" },
+    { naam: "Gino Deceuninck", tafel: 10, koppel: "Greet Allemeersch" },
+    { naam: "Shane Somers", tafel: 10, koppel: "Lieselotte Cachard" },
+    { naam: "Lieselotte Cachard", tafel: 10, koppel: "Shane Somers" },
+    { naam: "Nathalie Cromheecke", tafel: 10, koppel: "Thomas Van Deursen" },
+    { naam: "Thomas Van Deursen", tafel: 10, koppel: "Nathalie Cromheecke" },
+    { naam: "Cindy Vuylsteke", tafel: 10, koppel: "Pol Pauwels" },
+    { naam: "Pol Pauwels", tafel: 10, koppel: "Cindy Vuylsteke" },
+    { naam: "Annemie De Scheppere", tafel: 10, koppel: "Bart Vantorre" },
+    { naam: "Bart Vantorre", tafel: 10, koppel: "Annemie De Scheppere" },
     
 ].sort((a,b) => a.naam.localeCompare(b.naam));
 
@@ -510,7 +523,7 @@ function zoekPersoon() {
     resultaat.innerHTML = `
   <div class="result-box show">
     <p class="naam">Welkom ${displayNaam}${partnerNaam}!</p>
-    <p class="tafel">${tafelTekst} Tafel ${besteMatch.tafel}</p>
+    <p class="tafel">${tafelTekst} <span class="tafel-number">Tafel ${besteMatch.tafel}</span></p>
     ${boodschap ? `<p class="boodschap">${boodschap}</p>` : ''}
   </div>
 `;
