@@ -4,332 +4,278 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tafelzoeker – Jani & Zalissa</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #fdf8f4;
-  --accent: #c97b7b;
-  --text: #3f3f3f;
+  --primary: #b85c5c;
+  --secondary: #f5f2ef;
+  --accent: #8c3b3b;
+  --text: #333;
+  --light-text: #555;
+  --shadow: rgba(0,0,0,0.15);
+  --radius: 18px;
 }
 
 * {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: 'Quicksand', sans-serif;
-  background: var(--bg);
+  background: var(--secondary);
   color: var(--text);
-  scroll-behavior: smooth;
+  line-height: 1.6;
+  transition: background 0.3s ease;
 }
 
-/* =================== HEADER =================== */
+/* HEADER */
 header {
+  background: linear-gradient(rgba(184,92,92,0.6), rgba(184,92,92,0.3)), url('Foto1.jpg') center/cover no-repeat;
   height: 100vh;
-  background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('Foto1.jpg') center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: white;
-  padding: 2rem;
+  color: #fff;
   position: relative;
 }
 
-header::before {
-  content: "";
-  position: absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.25);
-  z-index: 1;
-}
-
-/* =================== TITLE BOX =================== */
-.title-box {
-  position: sticky;
-  top: 10px;
-  margin: 0 auto;
-  width: 90%;
-  max-width: 500px;
-  z-index: 2;
-  background: rgba(255,255,255,0.15);
-  padding: 1rem 1.5rem;
-  border-radius: 20px;
-  text-align: center;
-  animation: fadeIn 1.2s ease forwards;
-  transition: top 0.5s ease, transform 0.5s ease;
-}
-
-/* =================== TITLE =================== */
 header h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3.5rem;
-  color: var(--accent);
-  text-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+  animation: fadeIn 1.5s ease forwards;
+  opacity: 0;
 }
 
-/* =================== MAIN =================== */
+/* Main container */
 main {
   max-width: 600px;
-  margin: 20px auto 2rem;
-  padding: 0 1rem;
+  margin: -80px auto 50px;
+  padding: 0 20px;
+  z-index: 2;
   position: relative;
-  z-index: 1;
+  transition: all 0.3s ease;
 }
 
+/* SEARCH CARD */
 .search-card {
-  background: rgba(255, 255, 255, 0.92);
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  background: linear-gradient(145deg, #fffaf8, #fff1ef);
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
   text-align: center;
-  transform: translateY(50px);
-  opacity: 0;
-  transition: all 0.6s ease-in-out;
-  will-change: transform;
-  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.search-card.show {
-  transform: translateY(0);
-  opacity: 1;
-  animation: glow 3s ease-in-out infinite alternate;
+.search-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px var(--shadow);
 }
 
 .search-card h2 {
-  background: none;
-  padding: 0;
-  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
   font-size: 2rem;
-  color: var(--accent);
-  font-family: 'Great Vibes', cursive;
+  color: var(--primary);
+  margin-bottom: 2rem;
+  line-height: 1.3;
 }
 
+/* Input & Button */
 .search-card input {
-  padding: 14px 20px;
   width: 100%;
   max-width: 400px;
+  padding: 15px 20px;
   border-radius: 12px;
-  border: 2px solid var(--accent);
-  font-size: 1.1rem;
+  border: 2px solid var(--primary);
+  font-size: 1rem;
   outline: none;
-  position: relative;
-  z-index: 5;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-card input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(140,59,59,0.3);
 }
 
 .search-card button {
-  margin-top: 1rem;
-  padding: 12px 24px;
-  border: none;
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 28px;
   border-radius: 12px;
-  background: var(--accent);
-  color: white;
-  font-size: 1rem;
+  border: none;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-card button:hover {
-  background: #a45757;
+  background: var(--accent);
   transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(140,59,59,0.3);
 }
 
-#resultaat {
-  margin-top: 1rem;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: var(--accent);
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
-  transform: translateY(10px);
-}
-
-#resultaat.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Suggestions dropdown */
 .suggestions {
-  margin-top: 2px;
-  text-align: left;
+  margin-top: 5px;
   max-height: 150px;
   overflow-y: auto;
-  background: rgba(255,255,255,0.95);
-  border: 2px solid var(--accent);
+  background: #fff;
+  border: 2px solid var(--primary);
   border-top: none;
   border-radius: 0 0 12px 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 0.5rem;
+  box-shadow: 0 5px 15px var(--shadow);
   display: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  text-align: left;
+  position: absolute;
   width: 100%;
   max-width: 400px;
-  position: absolute;
   z-index: 10;
 }
 
 .suggestions.show {
   display: block;
-  opacity: 1;
 }
 
 .suggestions div {
-  padding: 8px 12px;
+  padding: 12px 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .suggestions div:hover {
-  background: var(--accent);
-  color: white;
-  transform: translateX(3px);
+  background: var(--primary);
+  color: #fff;
 }
 
-.back-link {
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-  color: var(--accent);
-  text-align: center;
-}
-
-.back-link a {
-  color: var(--accent) !important;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.back-link a:hover {
-  text-decoration: underline;
-}
-
-/* =================== RESULT BOX =================== */
+/* Result Box */
 .result-box {
-  background: rgba(201,123,123,0.1);
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  padding: 15px 20px;
-  font-size: 1.3rem;
-  color: var(--accent);
-  font-weight: 600;
+  background: linear-gradient(145deg, #fffaf8 0%, #fff1ef 100%);
+  border-radius: 28px;
+  padding: 35px 40px;
+  margin-top: 30px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
   text-align: center;
-  box-shadow: 0 8px 20px rgba(201,123,123,0.3);
+  font-family: 'Playfair Display', serif;
+  color: #6b3a3a;
+  line-height: 1.5;
   transition: all 0.4s ease;
 }
 
 .result-box p {
-  margin: 5px 0;
+  margin: 14px 0;
 }
 
-.result-box strong {
-  color: var(--accent);
-  font-size: 1.4rem;
+.result-box .naam {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #8c3b3b;
 }
 
-/* =================== ANIMATIE RESULT =================== */
-@keyframes resultFadeScale {
-  0% { opacity: 0; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1); }
+.result-box .tafel {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #a15c5c;
 }
 
-.animate-result {
-  animation: resultFadeScale 0.5s ease forwards;
+.result-box .boodschap {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 15px;
+  font-weight: 400;
+  border-top: 1px solid rgba(140,59,59,0.2);
+  padding-top: 15px;
 }
 
-/* =================== PRAKTISCHE INFO =================== */
+.result-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Practical Info Toggle */
 .info-toggle {
-  position: relative;
-  margin: 40px auto 20px;
-  max-width: 220px;
-  padding: 12px 18px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid var(--accent);
-  border-radius: 18px;
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.6rem;
-  color: var(--accent);
+  background: #fff;
+  border: 2px solid var(--primary);
+  border-radius: 25px;
+  max-width: 260px;
+  margin: 50px auto 20px;
+  padding: 14px 20px;
+  font-family: 'Playfair Display', serif;
+  color: var(--primary);
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  backdrop-filter: blur(6px);
-  white-space: nowrap;
-  z-index: 1;
+  box-shadow: 0 8px 20px var(--shadow);
+  transition: all 0.3s ease, transform 0.3s ease;
 }
 
 .info-toggle:hover {
-  background: rgba(255,255,255,1);
+  background: var(--secondary);
   transform: scale(1.05);
 }
 
 #arrow {
-  font-size: 1.2rem;
   transition: transform 0.3s ease;
 }
 
+/* Collapsible info box */
 .info-box-collapsible {
-  max-width: 800px;
-  margin: 0 auto 80px;
+  max-width: 720px;
+  margin: 0 auto 50px;
   padding: 0 20px;
-  background: rgba(255,255,255,0.70);
-  border-left: 4px solid var(--accent);
+  background: #fff;
+  border-left: 4px solid var(--primary);
   border-radius: 0 0 16px 16px;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.1);
-  line-height: 1.55;
-  font-size: 0.98rem;
-  color: #444;
-  backdrop-filter: blur(4px);
-
+  box-shadow: 0 10px 25px var(--shadow);
+  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--light-text);
   max-height: 0;
   overflow: hidden;
   opacity: 0;
   transform: translateY(-10px);
-  transition: max-height 0.6s ease, padding 0.4s ease,
-             opacity 0.6s ease, transform 0.6s ease;
+  transition: all 0.5s ease;
 }
 
 .info-box-collapsible.open {
-  padding: 20px 28px;
-  max-height: 500px;
+  max-height: 600px;
   opacity: 1;
   transform: translateY(0);
+  padding: 20px 25px;
 }
 
 .info-box-collapsible .groetjes {
   margin-top: 1rem;
   font-style: italic;
   text-align: right;
-  color: var(--accent);
+  color: var(--primary);
 }
 
-/* =================== ANIMATIES =================== */
+/* Animations */
 @keyframes fadeIn {
-  from {opacity:0; transform: translateY(20px);}
-  to {opacity:1; transform: translateY(0);}
+  to { opacity: 1; }
 }
 
-@keyframes glow {
-  0% { box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-  50% { box-shadow: 0 15px 40px rgba(201,123,123,0.4); }
-  100% { box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-}
-
-/* =================== RESPONSIVE =================== */
+/* Responsive */
 @media (max-width:768px){
   header h1 { font-size: 2.2rem; }
-  .title-box { padding: 0.8rem 1rem; }
-  .search-card h2 { font-size: 1.8rem; }
-  .search-card { padding: 2rem 1rem; }
-  .info-toggle { font-size: 1.4rem; }
+  .search-card h2 { font-size: 1.6rem; }
+  .info-toggle { max-width: 220px; padding: 12px 18px; }
+  .result-box { padding: 18px 22px; }
 }
 </style>
 </head>
@@ -337,40 +283,32 @@ main {
 <body>
 
 <header>
-  <div class="title-box">
-    <h1>Find Your Seat</h1>
-  </div>
+  <h1>Find Your Seat 💕</h1>
 </header>
 
 <main>
   <div class="search-card" id="searchCard">
-    <h2>Vul je naam in</h2>
-    <input id="naamInput" type="text" placeholder="Typ hier je voornaam + naam" oninput="showSuggestions()" autocomplete="off">
+    <h2>Geef je naam in en ontdek aan welke tafel je zit</h2>
+    <input id="naamInput" type="text" placeholder="Voornaam en achternaam" oninput="showSuggestions()" autocomplete="off">
     <div class="suggestions" id="suggestions"></div>
 
-    <button onclick="zoekPersoon()">Zoek je tafel</button>
+    <button onclick="zoekPersoon()">🔍 Vind mijn tafel</button>
     <div id="resultaat" role="status" aria-live="polite"></div>
-
-    <div class="back-link">
-      <a href="https://j-swb.github.io/trouwsiteJaniZalissa/" target="_blank">
-        Klik hier voor de volledige tafelschikking
-      </a>
-    </div>
   </div>
 </main>
 
 <div class="info-toggle" onclick="toggleInfoBox()">
-  <span class="icon">❤</span>
   <span>Praktische info</span>
   <span id="arrow">▼</span>
 </div>
 
 <div class="info-box-collapsible" id="infoBox" aria-expanded="false">
-  <p>All you can eat streetfood tussen <strong>19u en 21u</strong>. Daarna volgt het dessertbuffet.</p>
-  <p>Je hoeft je niet strikt aan je tafel te houden. Je mag gerust eens aan een andere tafel aanschuiven, of bij mooi weer buiten eten.</p>
+  <p style="margin-bottom:1.5rem;">De foodtruck is open tussen <strong>19u en 21u</strong>. Tijdens deze twee uur kunnen jullie onbeperkt (all you can eat) genieten van een selectie streetfoodklassiekers. Daarna volgt het dessertbuffet.</p>
+  <p style="margin-bottom:1.5rem;">Je hoeft je niet strikt aan je tafel te houden. Voel je vrij om even bij een andere tafel aan te schuiven, of bij mooi weer buiten te genieten van je maaltijd.</p>
   <p>De openingsdans is voorzien rond <strong>22u30</strong>, gelieve dan binnen te zijn.</p>
   <p class="groetjes">Met veel liefs, Jani & Zalissa</p>
 </div>
+
 
 <script>
 // ================= SEARCH CARD ANIMATION =================
@@ -384,18 +322,109 @@ window.addEventListener('scroll', () => {
 
 // ================= GASTEN =================
 const gasten = [
-    { naam: "Carine Van Belleghem", tafel: 1 },
-    { naam: "Chris Becue", tafel: 1 },
-    { naam: "Jani Swimberghe", tafel: 1 },
-    { naam: "Johan Swimberghe", tafel: 1 },
-    { naam: "Katrien Barremaecker", tafel: 1 },
-    { naam: "Zalissa Vanhauter", tafel: 1 },
-    { naam: "Brecht Velle", tafel: 2 },
-    { naam: "Celine Steyaert", tafel: 2 },
-    { naam: "Charlotte Carrette", tafel: 2 },
-    { naam: "Joey De Queecker", tafel: 2 },
-    { naam: "Nicky Bruneel", tafel: 2 },
-    { naam: "Sylvie Steyaert", tafel: 2 },
+    { naam: "Katrien Barremaecker", tafel: 1, bijnaam: "Mami", koppel: "Chris Becue", boodschap: "Dank voor je eindeloze muzieksuggesties – of alles gespeeld wordt, zien we nog… maar we houden van je enthousiasme! Bedankt dat jullie er altijd zijn voor ons ❤️."},
+    { naam: "Chris Becue", tafel: 1, bijnaam: "Papi", koppel: "Katrien Barremaecker", boodschap: "Dank voor je eindeloze muzieksuggesties – of alles gespeeld wordt, zien we nog… maar we houden van je enthousiasme! Bedankt om er altijd voor ons te zijn ❤️." },
+    { naam: "Caroline Barremaecker", tafel: 1, bijnaam: "tante Caroline", koppel: "Jan", boodschap: "Super dat jullie er bij zijn! Vandaag geen regels, behalve: geniet, plunder het dessertbuffet en vergeet alle zorgen!" },
+    { naam: "Jan", tafel: 1, bijnaam: "Jean", koppel: "Caroline Barremaecker", boodschap: "Super dat jullie er bij zijn! Vandaag geen regels, behalve: geniet, plunder het dessertbuffet en vergeet alle zorgen!"  },
+    { naam: "Jeroen Rosseel", tafel: 1, koppel: "Hanne Jacobs", boodschap: "Top dat jullie er zijn! Jullie aanwezigheid is altijd goed voor sfeer en hilariteit."},
+    { naam: "Hanne Jacobs", tafel: 1, koppel: "Jeroen Rosseel", boodschap: "Top dat jullie er zijn! Jullie aanwezigheid is altijd goed voor sfeer en hilariteit." },
+    { naam: "Chantal Vandooren", tafel: 1, koppel: "Jade Vandooren", boodschap:  "Dank voor al jullie hulp bij het trouwfeest, we hadden het niet kunnen doen zonder jullie!"},
+    { naam: "Jade Vandooren", tafel: 1, koppel: "Chantal Vandooren", boodschap:  "Dank voor al jullie hulp bij het trouwfeest, we hadden het niet kunnen doen zonder jullie!" },
+    { naam: "Carine Becue", tafel: 1, koppel: "Guido Degent", boodschap: "Fijn om jullie hier te zien, laten we er een mooie dag van maken!" },
+    { naam: "Guido Degent", tafel: 1, koppel: "Carine Becue", boodschap: "Fijn om jullie hier te zien, laten we er een mooie dag van maken!" },
+    { naam: "Debbie Caerels", tafel: 1, koppel: "Miguel Van den Broucke", boodschap: "Geniet van de dag, we zijn blij dat jullie er bij zijn!"},
+    { naam: "Miguel Van den Broucke", tafel: 1, koppel: "Debbie Caerels", boodschap: "Geniet van de dag, we zijn blij dat jullie er bij zijn!" },
+
+    { naam: "Johan Swimberghe", tafel: 2, bijnaam: "Bearke", koppel: "Carine Van Belleghem", boodschap: "Dank jullie wel voor alle kleine en grote momenten die jullie speciaal maken – we zien jullie graag!" },
+    { naam: "Carine Van Belleghem", tafel: 2, bijnaam: "Mama bear", koppel: "Johan Swimberghe", boodschap: "Dank jullie wel voor alle kleine en grote momenten die jullie speciaal maken – we zien jullie graag!" },
+    { naam: "Marc Synaeve", tafel: 2, koppel: "Els Taillaert" },
+    { naam: "Els Taillaert", tafel: 2, koppel: "Marc Synaeve" },
+    { naam: "Fernand Synaeve", tafel: 2 },
+    { naam: "Philip Helewaut", tafel: 2, koppel: "Katrien Vandierendonck" },
+    { naam: "Katrien Vandierendonck", tafel: 2, koppel: "Philip Helewaut" },
+
+    { naam: "Martine Swimberghe", tafel: 3, bijnaam: "tante Martine", koppel: "Gerard Van Overloop", boodschap: "Altijd blij om jullie te zien, vandaag extra speciaal!" },
+    { naam: "Gerard Van Overloop", tafel: 3, bijnaam: "nonkel Gerard", koppel: "Martine Swimberghe", boodschap: "Altijd blij om jullie te zien, vandaag extra speciaal!" },
+    { naam: "Chris Swimberghe", tafel: 3, bijnaam: "tante Chris", boodschap: "Super dat je er bij bent – dat maakt het extra fijn vandaag."},
+    { naam: "Lucie Swimberghe", tafel: 3, bijnaam: "tante Lou", boodschap: " Dankjewel om erbij te zijn en deze dag nog mooier te maken!"},
+    { naam: "Els Herremans", tafel: 3, koppel: "Rik Bouckaert", boodschap: "Top dat jullie erbij zijn op deze speciale dag!" },
+    { naam: "Rik Bouckaert", tafel: 3, koppel: "Els Herremans", boodschap: "Top dat jullie erbij zijn op deze speciale dag!"},
+    { naam: "Inge Lamote", tafel: 3, koppel: "Eddy Derous", boodschap: "Leuk dat jullie er zijn – laten we er een leuke dag van maken!" },
+    { naam: "Eddy Derous", tafel: 3 , koppel: "Inge Lamote", boodschap: "Leuk dat jullie er zijn – laten we er een leuke dag van maken!"},
+    { naam: "Petra Lamote", tafel: 3, koppel: "Annick Geysen", boodschap: "Altijd leuk om jullie te zien – zeker op zo’n speciale dag!" },
+    { naam: "Annick Geysen", tafel: 3,koppel: "Petra Lamote", boodschap: "Altijd leuk om jullie te zien – zeker op zo’n speciale dag!"  },
+
+    { naam: "Nicky Bruneel", tafel: 4, bijnaam: "Niki", koppel: "Sylvie Steyaert", boodschap: "Zonder jullie zou deze dag gewoon niet compleet zijn – zo blij dat jullie er zijn!" },
+    { naam: "Sylvie Steyaert", tafel: 4, bijnaam: "Sylf", koppel: "Nicky Bruneel", boodschap: "Zonder jullie zou deze dag gewoon niet compleet zijn – zo blij dat jullie er zijn!" },
+    { naam: "Joey De Queecker", tafel: 4, bijnaam: "De Kweker", koppel: "Eline Vermaercke", boodschap: "Als je hard genoeg in je glas kijkt, zie je misschien de zee. Maar eerlijk, met jullie erbij is het uitzicht al geweldig. Top dat jullie erbij zijn!" },
+    { naam: "Eline Vermaercke", tafel: 4, koppel: "Joey De Queecker", boodschap: "Als je hard genoeg in je glas kijkt, zie je misschien de zee. Maar eerlijk, met jullie erbij is het uitzicht al geweldig. Top dat jullie erbij zijn!" },
+    { naam: "Celine Steyaert", tafel: 4, bijnaam: "Cini", koppel: "Brecht Velle", boodschap: "De ene zorgt voor vuurwerk, de ander voor bluswater. Samen onvervangbaar – top dat jullie erbij zijn!" },
+    { naam: "Brecht Velle", tafel: 4, koppel: "Celine Steyaert", boodschap: "De ene zorgt voor vuurwerk, de ander voor bluswater. Samen onvervangbaar – top dat jullie erbij zijn!"  },
+    { naam: "Sam Velle", tafel: 4, boodschap: "Tunak tunak… hoge verwachtingen op de dansvloer, maar met jouw energie kan het niet anders dan feest zijn. Super dat je er bij bent, Sam!" },
+    { naam: "Charlotte Carrette", tafel: 4, bijnaam: "Charlie", koppel: "Pieterjan Claeys",  },
+    { naam: "Pieterjan Claeys", tafel: 4, bijnaam: "PJ", koppel: "Charlotte Carrette", },
+
+    { naam: "Jani Swimberghe", tafel: 5 },
+    { naam: "Zalissa Vanhauter", tafel: 5 },
+    { naam: "Niels Vandewiele", tafel: 5, },
+    { naam: "Sharon Dufour", tafel: 5 },
+    { naam: "Julie De Roy", tafel: 5 },
+    { naam: "Dieter Masyn", tafel: 5 },
+    { naam: "Maaike Casteleyn", tafel: 5, boodschap: "Super dat jullie er zijn! Tijd om herinneringen te maken die we morgenvroeg misschien niet meer herinneren."  },
+    { naam: "Stijn Wyseur", tafel: 5, boodschap: "Super dat jullie er zijn! Tijd om herinneringen te maken die we morgenvroeg misschien niet meer herinneren." },
+
+    { naam: "Emma Corty", tafel: 6 },
+    { naam: "Sven Jonckheere", tafel: 6 },
+    { naam: "Kenny Cools", tafel: 6 },
+    { naam: "Alexander Walraedt", tafel: 6 },
+    { naam: "Louise De Bisscop", tafel: 6 },
+    { naam: "Sam Clauwaert", tafel: 6 },
+    { naam: "Lisa Vancauwenberghe", tafel: 6 },
+
+    { naam: "Alec Vanhove", tafel: 7 },
+    { naam: "Michiel Rommel", tafel: 7 },
+    { naam: "Jenna Braeckman", tafel: 7 },
+    { naam: "Niels De Buck", tafel: 7 },
+    { naam: "Margaux Pauwels", tafel: 7 },
+    { naam: "Joakim Janssens", tafel: 7, koppel: "Jan Besbrugge", boodschap: "Proficiat met jullie eerste huwelijksjaar! Vorig jaar stonden jullie in de spotlight, dit jaar is het aan ons. Leuk dat jullie erbij zijn!"},
+    { naam: "Jan Besbrugge", tafel: 7, koppel: "Joakim Janssens", boodschap: "Proficiat met jullie eerste huwelijksjaar! Vorig jaar stonden jullie in de spotlight, dit jaar is het aan ons. Leuk dat jullie erbij zijn!"},
+    { naam: "Jurgen Vanderhaeghe", tafel: 7 },
+    { naam: "Ester Ceulemans", tafel: 7 },
+    { naam: "Katrien Verkeyn", tafel: 7 },
+    { naam: "Lara Verburgh", tafel: 7 },
+    { naam: "Veerle Mechelaere", tafel: 7 },
+
+    { naam: "Timothy Dekeyzer", tafel: 8, bijnaam: "Timomo" },
+    { naam: "Thomas Lievens", tafel: 8, bijnaam: "Thomasson" },
+    { naam: "Evelyne De Man", tafel: 8 },
+    { naam: "Jorgi Swimberghe", tafel: 8, bijnaam: "Apenkoptje" },
+    { naam: "Lore Cuypers", tafel: 8 },
+    { naam: "Jens Swimberghe", tafel: 8, bijnaam: "Jeantje" },
+    { naam: "Daisy Dautricourt", tafel: 8 },
+
+    { naam: "Joachim Reybrouck", tafel: 9, bijnaam: "Jooten" },
+    { naam: "Luna Samson", tafel: 9 },
+    { naam: "Steve Van De Zande", tafel: 9 },
+    { naam: "Kaatje Loeys", tafel: 9 },
+    { naam: "Tom Van de Woestyne", tafel: 9 },
+    { naam: "Aurelie Rodeyns", tafel: 9 },
+    { naam: "Tim Adam", tafel: 9 },
+    { naam: "Vanessa Loncke", tafel: 9 },
+    
+    { naam: "Hilde Uittenhove", tafel: 10 },
+    { naam: "Dominique Byl", tafel: 10 },
+    { naam: "Shanna Kangria", tafel: 10 },
+    { naam: "Greet Allemeersch", tafel: 10 },
+    { naam: "Gino Deceuninck", tafel: 10 },
+    { naam: "Shane Somers", tafel: 10 },
+    { naam: "Lieselotte Cachard", tafel: 10 },
+    { naam: "Nathalie Cromheecke", tafel: 10 },
+    { naam: "Thomas Van Deursen", tafel: 10 },
+    { naam: "Cindy Vuylsteke", tafel: 10 },
+    { naam: "Pol Pauwels", tafel: 10 },
+    { naam: "Annemie De Scheppere", tafel: 10 },
+    { naam: "Bart Vantorre", tafel: 10 },
+    
 ].sort((a,b) => a.naam.localeCompare(b.naam));
 
 function levenshtein(a,b){
@@ -427,47 +456,76 @@ function vergelijkNamen(inputNaam,gastNaam){
   return totaleScore;
 }
 
-function zoekPersoon(){
-  const input=document.getElementById("naamInput").value.trim().replace(/\s+/g," ");
-  const resultaat=document.getElementById("resultaat");
+function zoekPersoon() {
+  const input = document.getElementById("naamInput").value.trim().replace(/\s+/g," ");
+  const resultaat = document.getElementById("resultaat");
   resultaat.classList.remove("show");
 
   if(!input){
-    resultaat.textContent="Voer een naam in.";
+    resultaat.textContent = "Voer een naam in.";
     resultaat.classList.add("show");
     return;
   }
 
-  let besteMatch=null;
-  let besteScore=999;
+  let besteMatch = null;
+  let besteScore = 999;
 
-  gasten.forEach(gast=>{
-    const score=vergelijkNamen(input.toLowerCase(),gast.naam.toLowerCase());
-    if(score<besteScore){
-      besteScore=score;
-      besteMatch=gast;
+  gasten.forEach(gast => {
+    const score = vergelijkNamen(input.toLowerCase(), gast.naam.toLowerCase());
+    if(score < besteScore){
+      besteScore = score;
+      besteMatch = gast;
     }
   });
 
-  const drempel=Math.ceil(input.replace(/\s/g,"").length * 0.4);
+  const drempel = Math.ceil(input.replace(/\s/g,"").length * 0.4);
 
   if(besteScore <= drempel){
     const voornaam = besteMatch.naam.split(" ")[0];
-    resultaat.innerHTML = `
-      <div class="result-box">
-        <p>Welkom <strong>${voornaam}</strong>!</p>
-        <p>Je zit aan tafel <strong>${besteMatch.tafel}</strong>.</p>
-      </div>
-    `;
-    const box = resultaat.querySelector('.result-box');
-    if(box){
-      box.classList.add('animate-result');
+    const displayNaam = besteMatch.bijnaam || voornaam;
+
+    let boodschap = besteMatch.boodschap || "";
+    let partnerNaam = "";
+    let tafelTekst = "We hebben een plekje voor jou voorzien aan"; // standaard
+
+    if(besteMatch.koppel){
+        const partner = gasten.find(g => g.naam === besteMatch.koppel);
+        if(partner){
+            const partnerDisplay = partner.bijnaam || partner.naam.split(" ")[0];
+            partnerNaam = " & " + partnerDisplay;
+
+            // Combineer de boodschappen van beide, of neem de bestaande
+            if(!boodschap && partner.boodschap){
+                boodschap = partner.boodschap;
+            }
+
+            // Nu pas 'je' vervangen door 'jullie' in boodschap
+            boodschap = pasBoodschapAanVoorKoppel(boodschap);
+
+            // Pas ook de tafeltekst aan
+            tafelTekst = "We hebben een plekje voor jullie voorzien aan";
+        }
     }
-  } else {
+
+    resultaat.innerHTML = `
+  <div class="result-box show">
+    <p class="naam">Welkom ${displayNaam}${partnerNaam}!</p>
+    <p class="tafel">${tafelTekst} Tafel ${besteMatch.tafel}</p>
+    ${boodschap ? `<p class="boodschap">${boodschap}</p>` : ''}
+  </div>
+`;
+t.querySelector('.result-box')?.classList.add('animate-result');
+} else {
     resultaat.textContent="Naam niet gevonden. Probeer opnieuw.";
   }
 
   resultaat.classList.add("show");
+}
+
+function pasBoodschapAanVoorKoppel(resultaat) {
+  if(!resultaat) return '';
+  // Vervang 'je' of 'Je' door 'jullie', alleen als het losse woorden zijn
+  return resultaat.replace(/\bjou\b/g, 'jullie').replace(/\bJe\b/g, 'Jullie');
 }
 
 function showSuggestions(){
