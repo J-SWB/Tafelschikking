@@ -1,1 +1,195 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tafelschikking – Binnenkort beschikbaar</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #b85c5c;
+  --secondary: #f5f2ef;
+  --accent: #8c3b3b;
+  --text: #333;
+  --light-text: #555;
+  --shadow: rgba(0,0,0,0.15);
+  --radius: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: var(--secondary);
+  color: var(--text);
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(rgba(184,92,92,0.6), rgba(184,92,92,0.3)), url('Foto1.jpg') center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  text-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+}
+
+/* CARD */
+main {
+  max-width: 700px;
+  margin: -80px auto 50px;
+  padding: 0 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #fffaf8, #fff1ef);
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.card h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: var(--light-text);
+  margin-bottom: 1.5rem;
+}
+
+/* COUNTDOWN */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.time-box {
+  background: #fff;
+  border: 2px solid var(--primary);
+  border-radius: 14px;
+  padding: 15px 18px;
+  min-width: 80px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+.time-box span {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.time-box small {
+  font-size: 0.8rem;
+  color: var(--light-text);
+}
+
+.footer {
+  margin-top: 2rem;
+  font-style: italic;
+  color: var(--primary);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Tafelschikking 💕</h1>
+</header>
+
+<main>
+  <div class="card">
+
+    <h2>Binnenkort beschikbaar</h2>
+
+    <p>Nog even geduld, je kan je tafelnummer bekijken over:</p>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown">
+      <div class="time-box">
+        <span id="days">0</span>
+        <small>Dagen</small>
+      </div>
+      <div class="time-box">
+        <span id="hours">0</span>
+        <small>Uur</small>
+      </div>
+      <div class="time-box">
+        <span id="minutes">0</span>
+        <small>Min</small>
+      </div>
+      <div class="time-box">
+        <span id="seconds">0</span>
+        <small>Sec</small>
+      </div>
+    </div>
+
+    <p>Kom later terug of scan de QR-code op ons trouwfeest</p>
+
+    <div class="footer">
+      Met veel liefs, Jani & Zalissa 💕
+    </div>
+
+  </div>
+</main>
+
+<script>
+/* 🎯 SET JE EVENT DATUM HIER */
+const targetDate = new Date("2026-05-23T12:00:00+02:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  if (diff <= 0) {
+    document.querySelector(".card").innerHTML = `
+      <h2>De tafelschikking is nu live 🎉</h2>
+      <p>Herlaad de pagina of scan de QR-code opnieuw.</p>
+    `;
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
