@@ -544,7 +544,7 @@ function showSuggestions(){
   const suggestionBox=document.getElementById("suggestions");
   suggestionBox.innerHTML="";
   suggestionBox.classList.remove("show");
-  if(input.length < 10){
+  if(input.length < 3){
   suggestionBox.style.display="none";
   suggestionBox.classList.remove("show");
   return;
